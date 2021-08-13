@@ -1,5 +1,6 @@
 package ru.netology.geo;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import ru.netology.entity.Country;
@@ -13,19 +14,25 @@ class GeoServiceImplTest {
     @ParameterizedTest
     @ValueSource(strings = {LOCALHOST, MOSCOW_IP, NEW_YORK_IP})
     void byIpTest(String ip) {
-        Location location = null;
+        final Location exceptedLocalhost = new Location(null, null, null, 0);
+        Location exceptedMoscow = new Location("Moscow", Country.RUSSIA, "Lenina", 15);
+        Location exceptedNewYork = new Location("New York", Country.USA, " 10th Avenue", 32);
+        Location actual;
         if (LOCALHOST.equals(ip)) {
-            location = new Location(null, null, null, 0);
+            actual = new Location(null, null, null, 0);
+            Assertions.assertEquals(exceptedLocalhost, actual);
         } else if (MOSCOW_IP.equals(ip)) {
-            location = new Location("Moscow", Country.RUSSIA, "Lenina", 15);
+            actual = new Location("Moscow", Country.RUSSIA, "Lenina", 15);
+            Assertions.assertEquals(exceptedMoscow, actual);
         } else if (NEW_YORK_IP.equals(ip)) {
-            location = new Location("New York", Country.USA, " 10th Avenue", 32);
+            actual = new Location("New York", Country.USA, " 10th Avenue", 32);
+            Assertions.assertEquals(exceptedNewYork, actual);
         } else if (ip.startsWith("172.")) {
-            location = new Location("Moscow", Country.RUSSIA, null, 0);
+            actual = new Location("Moscow", Country.RUSSIA, null, 0);
         } else if (ip.startsWith("96.")) {
-            location = new Location("New York", Country.USA, null, 0);
+            actual = new Location("New York", Country.USA, null, 0);
         }
-        System.out.print("Локация: " + location.getCity() + ", " + location.getCountry()
-                + ", " + location.getStreet() + ", " + location.getBuiling());
+        //System.out.print("Локация: " + location.getCity() + ", " + location.getCountry()
+        //        + ", " + location.getStreet() + ", " + location.getBuiling());
     }
 }

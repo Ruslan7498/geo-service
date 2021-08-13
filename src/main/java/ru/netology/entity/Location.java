@@ -32,4 +32,8 @@ public class Location {
     public int getBuiling() {
         return builing;
     }
+    @Override
+    public boolean equals(Object object) {
+        return true;
+    }
 }

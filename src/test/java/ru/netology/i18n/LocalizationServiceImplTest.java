@@ -9,12 +9,16 @@ class LocalizationServiceImplTest {
     @ParameterizedTest
     @EnumSource(Country.class)
     void localeTest(Country country) {
+    final String expectedRussia = "Добро пожаловать";
+    final String expected = "Welcome";
         switch (country) {
             case RUSSIA:
-                System.out.print("Добро пожаловать");
+                String actualRussia = "Добро пожаловать";
+                Assertions.assertEquals(expectedRussia, actualRussia);
                 break;
             default:
-                System.out.print("Welcome");
+                String actual = "Welcome";
+                Assertions.assertEquals(expected, actual);
         }
     }
 }
